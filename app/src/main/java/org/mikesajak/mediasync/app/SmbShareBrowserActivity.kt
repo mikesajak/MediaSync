@@ -3,26 +3,20 @@ package org.mikesajak.mediasync.app
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.TextView
 import android.widget.Toast
 import jcifs.smb.SmbFile
 import kotlinx.android.synthetic.main.activity_smb_share_browser.*
+import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.async
+import org.jetbrains.anko.error
 import org.jetbrains.anko.uiThread
 import java.util.*
 
 /**
  * Created by mike on 07.01.16.
  */
-class SmbShareBrowserActivity : AppCompatActivity() {
-
-    private val TAG = SmbShareBrowserActivity::class.java.simpleName
-
+class SmbShareBrowserActivity : AppCompatActivity(), AnkoLogger {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +26,7 @@ class SmbShareBrowserActivity : AppCompatActivity() {
 
         val intent = getIntent()
         val dirName = intent?.getStringExtra("dir")
-        if (dirName == null) Log.e(TAG, "Non-empty share name expected")
+        if (dirName == null) error("Non-empty share name expected")
 
         val parentDirName = intent?.getStringExtra("parentDir")
 
@@ -59,9 +53,8 @@ class SmbShareBrowserActivity : AppCompatActivity() {
                     progressBar.visibility = View.INVISIBLE
                 }
             } catch (e: Exception) {
-                val msg = "Error ocurred while reading remote directory: $dirName.\n" +
-                        "$e: ${e.message}"
-                Log.e(TAG, msg)
+                val msg = "Error ocurred while reading remote directory: $dirName."
+                error(msg, e)
                 uiThread {
                     Toast.makeText(this@SmbShareBrowserActivity, msg, Toast.LENGTH_LONG).show()
                     progressBar.visibility = View.INVISIBLE

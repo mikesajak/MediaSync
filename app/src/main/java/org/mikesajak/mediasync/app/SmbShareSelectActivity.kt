@@ -2,28 +2,18 @@ package org.mikesajak.mediasync.app
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Environment
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import jcifs.netbios.NbtAddress
 import jcifs.smb.SmbFile
 import kotlinx.android.synthetic.main.activity_smb_share_select.*
-import org.jetbrains.anko.async
-import org.jetbrains.anko.uiThread
-import java.io.PrintWriter
-import java.io.StringWriter
+import org.jetbrains.anko.*
 import java.util.*
 
 /**
 * Created by mike on 05.01.16.
 */
-class SmbShareSelectActivity : AppCompatActivity() {
-    val TAG = "MainActivity"
-
+class SmbShareSelectActivity : AppCompatActivity(), AnkoLogger {
     val adapter by lazy { HostListViewAdapter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +33,7 @@ class SmbShareSelectActivity : AppCompatActivity() {
         async() {
             try {
                 val domains = SmbFile("smb://").list()?.toList()
-                Log.d(TAG, "domains: $domains")
+                debug("domains: $domains")
 
                 val domains2HostsMap =
                     domains?.toMap { domain ->
@@ -66,7 +56,7 @@ class SmbShareSelectActivity : AppCompatActivity() {
                         }
                     } ?: ArrayList()
 
-                Log.d(TAG, "----- hosts: $domains2HostsMap")
+                debug("----- hosts: $domains2HostsMap")
 
                 uiThread {
                     if (domains2HostsMap == null) adapter.clear()
@@ -77,9 +67,7 @@ class SmbShareSelectActivity : AppCompatActivity() {
                     discoveryProgressBar.visibility = View.INVISIBLE
                 }
             } catch (e: Throwable) {
-                val sw = StringWriter()
-                e.printStackTrace(PrintWriter(sw))
-                Log.e(TAG, "******************* Exception: ${e.message}\nStack trace:\n$sw")
+                error("******************* Exception: ${e.message}", e)
                 uiThread {
                     Toast.makeText(this@SmbShareSelectActivity, "Error while searching local network: $e: ${e.message}",
                             Toast.LENGTH_LONG).show()

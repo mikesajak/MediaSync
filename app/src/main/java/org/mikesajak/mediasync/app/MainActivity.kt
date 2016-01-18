@@ -7,7 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_smb_share_browser.*
-import org.jetbrains.anko.onClick
+import org.jetbrains.anko.*
 
 /**
  * Created by mike on 08.01.16.
@@ -18,7 +18,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        startButton.onClick { startActivity(Intent(this@MainActivity, Main2Activity::class.java)) }
+//        startButton.onClick { MediaSyncService.startActionSync(this@MainActivity) }
+        startButton.onClick { startActivity<HomeWifiSelectionActivity>() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            startActivity(Intent(this, SettingsActivity::class.java))
+            startActivity<SettingsActivity>()
             return true
         }
 
