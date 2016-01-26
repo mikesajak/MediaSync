@@ -6,4 +6,9 @@
     <color name="list_row_default_bg">#ffffff</color>
     <color name="list_row_pressed_bg">#008cef</color>
     <color name="list_row_selected_bg">#86d3f6</color>
+
+
+    <color name="primary">#a7180e</color>
+    <color name="primary_dark">#78110a</color>
+    <color name="accent">#eb2416</color>
 </resources>

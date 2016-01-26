@@ -1,32 +1,53 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              tools:context="org.mikesajak.mediasync.app.MainActivity">
+<android.support.design.widget.CoordinatorLayout
+        android:id="@+id/mainCoordinatorLayout"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context="org.mikesajak.mediasync.app.MainActivity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <LinearLayout android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:orientation="horizontal" android:layout_gravity="center_horizontal"
-                  android:layout_marginTop="50dp">
-        <TextView
-                android:text="Service status"
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical">
+
+        <!--<include android:id="@+id/mainToolbar"-->
+                 <!--layout="@layout/toolbar"/>-->
+        <android.support.v7.widget.Toolbar
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:elevation="4dp"
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        />
+
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal" android:layout_gravity="center_horizontal"
+                      android:layout_marginTop="50dp">
+            <TextView
+                    android:text="Service status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/textView1"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="STOPPED"
+                    android:id="@+id/textView2"
+                    android:layout_column="1"
+                    android:layout_marginLeft="5dp"/>
+        </LinearLayout>
+        <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:id="@+id/textView1"/>
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="STOPPED"
-                android:id="@+id/textView2"
-                android:layout_column="1"
-                android:layout_marginLeft="5dp"/>
+                android:text="Run NOW"
+                android:id="@+id/startButton" android:layout_gravity="center_horizontal" android:layout_marginTop="40dp"/>
+
     </LinearLayout>
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Run NOW"
-            android:id="@+id/startButton" android:layout_gravity="center_horizontal" android:layout_marginTop="40dp"/>
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

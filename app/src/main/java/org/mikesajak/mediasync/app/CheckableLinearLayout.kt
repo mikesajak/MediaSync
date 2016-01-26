@@ -2,6 +2,7 @@ package org.mikesajak.mediasync.app
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.widget.Checkable
 import android.widget.LinearLayout
 
@@ -19,21 +20,28 @@ class CheckableLinearLayout(context: Context, attrs: AttributeSet?) : LinearLayo
 
     override fun setChecked(b: Boolean) {
         checked = b
+        Log.d("CheckableLinearLayout", "setChecked($b), drawableState0=$drawableState")
         refreshDrawableState()
+        Log.d("CheckableLinearLayout", "setChecked($b), drawableState1=$drawableState")
     }
     override fun isChecked() = checked
     override fun toggle() { setChecked(!checked) }
 
     override fun onCreateDrawableState(extraSpace: Int): IntArray? {
-        val drawableState = super.onCreateDrawableState(extraSpace)
-        if (checked) {
-            mergeDrawableStates(drawableState, CheckedStateSet)
-        }
-        return drawableState
+        return if (checked) {
+               val drawableState = super.onCreateDrawableState(extraSpace + 1)
+               mergeDrawableStates(drawableState, CheckedStateSet)
+            } else super.onCreateDrawableState(extraSpace)
+    }
+
+    private fun updateState() {
+
     }
 
     override fun performClick(): Boolean {
         toggle()
         return super.performClick()
     }
+
+
 }

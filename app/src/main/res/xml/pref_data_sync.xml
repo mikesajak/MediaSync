@@ -23,4 +23,8 @@
                 android:targetClass="org.mikesajak.mediasync.app.SmbShareSelectActivity"/>
     </Preference>
 
+    <Preference android:title="Select wifi network"
+                android:key="select_wifi"/>
+
+
 </PreferenceScreen>

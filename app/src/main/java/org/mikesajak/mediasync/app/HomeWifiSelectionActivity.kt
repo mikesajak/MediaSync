@@ -1,5 +1,6 @@
 package org.mikesajak.mediasync.app;
 
+import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -13,20 +14,27 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ListView
 import kotlinx.android.synthetic.main.activity_home_wifi_selection.*
 import org.jetbrains.anko.*
 
 public class HomeWifiSelectionActivity: AppCompatActivity(), AnkoLogger {
+    companion object {
+        val SELECT_WIFI_REQUEST = 1
+        val WIFI_SELECTION_RESULT = "selectedNetwork"
+    }
     val TAG = "HomeWifiSelectionActivity"
 
     val rescanPeriod = 30000L
-    var wifiReceiver: WifiReceiver? = null
+    private var wifiReceiver: WifiReceiver? = null
 
-    val timerHandler = Handler()
-    val timerTask = TimerTask()
+    private val timerHandler = Handler()
+    private val timerTask = TimerTask()
 
-    var state: Parcelable? = null
+    private var state: Parcelable? = null
+
+    private var selectedItem = -1
 
     inner class TimerTask(): Runnable {
         override fun run() {
@@ -51,6 +59,27 @@ public class HomeWifiSelectionActivity: AppCompatActivity(), AnkoLogger {
             wifiListView.onRestoreInstanceState(state)
 
         setContentView(R.layout.activity_home_wifi_selection);
+
+        wifiListView.onItemClick { adapterView, view, position, rowId ->
+//            selectButton.enabled = wifiListView.selectedItem != null
+            if (position > 0) selectButton.enabled = true
+            selectedItem = position
+        }
+
+        selectButton.onClick {
+            val resultIntent = Intent()
+            val adapter = wifiListView.adapter as WifiListAdapter
+            val selectedNetwork = adapter.itemAt(selectedItem)
+            resultIntent.putExtra(WIFI_SELECTION_RESULT, selectedNetwork.SSID)
+            setResult(Activity.RESULT_OK, resultIntent)
+
+            ///////////////
+//            getSharedPreferences("select_wifi")
+
+
+
+            finish()
+        }
 
         multiSelectionSwitch.onCheckedChange { button, enabled ->
             wifiListView.choiceMode = if (enabled) ListView.CHOICE_MODE_MULTIPLE_MODAL else ListView.CHOICE_MODE_SINGLE

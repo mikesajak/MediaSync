@@ -11,7 +11,7 @@
 
     <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content">
         <TextView
                 android:layout_width="0dp"
@@ -31,7 +31,7 @@
 
     <ListView
             android:id="@+id/wifiListView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:clickable="false"
@@ -59,7 +59,8 @@
                 android:id="@+id/selectButton"
                 android:drawableLeft="@drawable/ic_check_black_24dp"
                 android:text="SELECT"
-                android:layout_gravity="center_vertical|right"/>
+                android:layout_gravity="center_vertical|right"
+                android:enabled="false"/>
     </LinearLayout>
 
 </LinearLayout>
