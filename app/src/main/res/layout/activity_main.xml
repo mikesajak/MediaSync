@@ -33,21 +33,30 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
-                    android:id="@+id/textView1"/>
+                    android:id="@+id/statusLabel"/>
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="STOPPED"
-                    android:id="@+id/textView2"
+                    android:id="@+id/statusValue"
                     android:layout_column="1"
                     android:layout_marginLeft="5dp"/>
         </LinearLayout>
         <Button
+                style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Run NOW"
-                android:id="@+id/startButton" android:layout_gravity="center_horizontal" android:layout_marginTop="40dp"/>
+                android:text="START"
+                android:id="@+id/startButton" android:layout_gravity="center_horizontal"/>
 
     </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@android:drawable/ic_media_play"/>
 
 </android.support.design.widget.CoordinatorLayout>

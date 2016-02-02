@@ -1,20 +1,18 @@
 package org.mikesajak.mediasync.app
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_smb_share_browser.*
-import org.jetbrains.anko.*
 
 /**
  * Created by mike on 08.01.16.
  */
 class MainActivity : AppCompatActivity() {
+
+    private var serviceRunning = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +22,18 @@ class MainActivity : AppCompatActivity() {
 //        setSupportActionBar(toolbar)
 
 //        startButton.onClick { MediaSyncService.startActionSync(this@MainActivity) }
-        startButton.onClick { startActivity<HomeWifiSelectionActivity>() }
+        startButton.onClick {
+//            startActivity<HomeWifiSelectionActivity>()
+//            startActivity<NavigationDrawerActivity>()
+            startActivity<TabbedActivity>()
+        }
+
+        fab.setOnClickListener {
+            fab.setImageResource(if (!serviceRunning) android.R.drawable.ic_media_play
+                                 else android.R.drawable.ic_media_pause)
+            serviceRunning = !serviceRunning
+            statusValue.text = if (!serviceRunning) "STOPPED" else "STARTED"
+        }
 
         Snackbar.make(mainCoordinatorLayout, "Service status: STOPPED", Snackbar.LENGTH_INDEFINITE).show()
     }

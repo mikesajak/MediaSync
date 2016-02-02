@@ -111,4 +111,7 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="title_activity_home_wifi_selection">HomeWifiSelectionActivity</string>
+    <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
+    <string name="title_activity_tabbed">TabbedActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>
